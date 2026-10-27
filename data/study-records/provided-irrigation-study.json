@@ -1,0 +1,469 @@
+{
+  "schema_version": "2",
+  "rulebook_version": "1.0 (2026-09-14)",
+  "provenance_basis": "document.txt",
+  "extracted_at": "2026-10-07",
+  "extracted_by": "manual (gold-set, collection 5 of 11)",
+  "reviewer_brief": "The only one of four documents from the Multifunctional Landscapes collection that we accepted. The other three we rejected, on three different tests, which is itself the main finding of this batch.\n\nEverything below is our reading and we may be wrong. For each line, please tell us whether it is correct, should be changed, or should be removed, and choose \"Not my area\" rather than leaving a line if it is outside your field.\n\nTHE ONE QUESTION WE MOST NEED ANSWERED IS ABOUT SCALE. This is the best candidate for LANDSCAPE we have found in twenty-four documents, and we still recorded plot. The reasoning is set out under the scale line. If we have applied your rule too literally, this is the document to say so on.\n\nOne other thing to know: the report contains no measurement at all. No litre, no cubic metre, no millimetre, no kilogram, no price. We checked for each. Every impact below is therefore marked as perceived, and that is not a criticism of the report, which says openly that it is qualitative.",
+  "deterministic": {
+    "item_uuid": "435c4181-2912-4818-83db-3b06b9de1222",
+    "handle": "10568/181922",
+    "url": "https://hdl.handle.net/10568/181922",
+    "title": "Analysis of irrigation systems and water-efficient agricultural practices in the peanut-growing region: The cases of Ndiob and Niakhar (Fatick Department)",
+    "authors": [
+      "Diakhaté, Finda Bayo",
+      "Ba, Aminata",
+      "Piraux, Marc"
+    ],
+    "affiliations": [
+      "Centre de Coopération Internationale en Recherche Agronomique pour le Développement",
+      "Institut Sénégalais de Recherches Agricoles"
+    ],
+    "issued": "2026-01",
+    "type": "Report",
+    "language": "en",
+    "access_rights": "Open Access",
+    "license": "CC-BY-ND-4.0",
+    "donors": [],
+    "programs": [
+      "Multifunctional Landscapes"
+    ],
+    "initiatives": [],
+    "collections": [
+      "SP Multifunctional Landscapes"
+    ],
+    "country": [
+      "Senegal"
+    ],
+    "country_iso2": [
+      "SN"
+    ],
+    "region": [
+      "Africa",
+      "Western Africa",
+      "Sub-Saharan Africa"
+    ],
+    "subregion": [],
+    "pdf_bitstream_uuid": "6ef85fcd-6649-4f38-903f-482ea644dd3c",
+    "text_chars_cgspace": 41125,
+    "text_chars_full_pdf": 40645,
+    "cgspace_text_truncated": false
+  },
+  "probabilistic": {
+    "is_technological_innovation": {
+      "value": true,
+      "confidence": "medium",
+      "provenance": [
+        {
+          "quote": "Conversely, modern irrigation systems such as lasers, drip irrigation, and sprinklers, although not widely adopted in the two study areas, offer significant potential for optimizing water consumption.",
+          "char_start": 22440,
+          "char_end": 22640,
+          "match": "exact",
+          "page": null,
+          "note": null
+        },
+        {
+          "quote": "The results show a wide variety of water-saving practices in the municipalities of Ndiob and Niakhar. These include mulching, zaï, installing windbreaks, intercropping, adding organic amendments, and using shade structures.",
+          "char_start": 20163,
+          "char_end": 20386,
+          "match": "exact",
+          "page": null,
+          "note": "named practices, found in use, not proposed"
+        },
+        {
+          "quote": "It is with this in mind that the present study, as part of the CGIAR's MutiFunctional Landscapes (MFL) project, aims to evaluate, identify, and characterize good irrigation practices in the municipalities of Ndiob and Niakhar.",
+          "char_start": 5716,
+          "char_end": 5942,
+          "match": "exact",
+          "page": null,
+          "note": "the practices are the study's stated objective, which is what T4 asks"
+        }
+      ],
+      "innovation_name": "A set of water-saving irrigation systems and cultivation practices found in use in market gardens: drip irrigation, low-pressure sprinklers, laser and rotary irrigation, zaï planting pits, mulching, windbreaks, intercropping, shade structures and organic amendments, together with electric meters on mini-boreholes. The comparators are the lance or water cannon, the hose, the perforated bucket and the watering can",
+      "innovation_count": "9",
+      "rejection_test": null,
+      "note": "Accepted. T1: drip lines, sprinklers, meters and shade structures are abiotic artefacts, and zaï, mulching, intercropping and windbreaks are cultivation practices. T2: they act on soil moisture, soil fertility, groundwater and crop yield in real market gardens. T4: unlike the Senegal mycorrhiza report in the last batch, where gender was the subject and the technology the case, here the practices ARE the subject and the social lens is the method.\n\nConfidence is medium, for two reasons. The study is explicitly qualitative, 49 semi-structured interviews and field observation, so nothing about the technologies is measured. And it characterises practices farmers already use rather than reporting a trial, which strains T3 in a milder way than the two rejected plans in this batch: here something is happening in the fields, it is simply not being measured.\n\nOne thing we noticed and want to flag: the report heads a section \"Emerging agroecological practices with measurable positive effects\" and then measures nothing. We have not held that against the verdict, but it is the kind of wording that would mislead an automated extractor into recording a measured impact.",
+      "for_reviewer": null,
+      "internal_note": "Compare Agro_1a2/004, the mycorrhiza gender study, which we accepted at LOW confidence because the technology was the CASE and gender the subject. Here it is the reverse, so this is the cleaner accept of the two and the pair should help settle open question 11. Count of 9 raises open question 3 again, fifth instance."
+    },
+    "scale": {
+      "value": "plot-herd",
+      "confidence": "low",
+      "provenance": [
+        {
+          "quote": "On average, the area devoted to market gardening is around 1 hectare.",
+          "char_start": 15424,
+          "char_end": 15493,
+          "match": "exact",
+          "page": null,
+          "note": null
+        },
+        {
+          "quote": "These allow for the rational use of irrigation water, while improving agricultural yields.",
+          "char_start": 1362,
+          "char_end": 1452,
+          "match": "exact",
+          "page": null,
+          "note": "the practices are applied to the garden the producer irrigates"
+        },
+        {
+          "quote": "However, their transformative potential depends on the existence of collective governance mechanisms capable, on the one hand, of aligning practices implemented at the plot level with water dynamics at the landscape level and, on the other hand, of establishing mechanisms for territorial regulation of water use.",
+          "char_start": 34326,
+          "char_end": 34639,
+          "match": "exact",
+          "page": null,
+          "note": "the report's own framing of the tension between the plot and the landscape, which is the question we are putting to you"
+        }
+      ],
+      "note": "THE SCALE QUESTION OF THIS WHOLE COLLECTION SITS HERE, and we have followed your rule rather than our instinct.\n\nYour ruling is that scale is the unit of APPLICATION, not adoption and not deployment: a seeder used across a million hectares is still plot. A drip line, a mulch layer and a zaï pit are each installed on one garden of about a hectare, so by that rule this is plot, and that is what we recorded.\n\nWhat makes us uncomfortable is the resource. Every one of these gardens draws from the same shallow groundwater in the Sine dead valley. Water saved on one producer's plot stays in the aquifer for a producer on a different farm, so the effect crosses farm boundaries by physical necessity rather than by deployment. The report builds its whole conclusion on that, and asks for water to be treated as a territorial common good.\n\nConfidence is low because we think the rule and the reality may be pulling apart here.",
+      "for_reviewer": "LANDSCAPE has never been assigned once, in twenty-four documents across five collections, and we deliberately picked this collection to find out why. Three of the four documents we chose were landscape-scoped and all three were rejected at stage 2, so they could not carry a scale value at all. This is the only accepted document left, and we recorded it as plot.\n\nSo our question is really two questions. First, on this document: when a plot-level practice acts on a resource shared across farms, like a common aquifer, is that still plot, or is it landscape? Second, and more important: if the answer is plot, then is LANDSCAPE a value the codebook should keep? We would rather retire it with your agreement than carry an option the corpus never fills.",
+      "internal_note": "Twenty-four documents, zero landscape. Recorded as plot to follow the ruling, with the tension declared, exactly as with the Synergies and FAO conflict. Do NOT quietly assign landscape to make the codebook look used."
+    },
+    "agroecological_principles": [
+      {
+        "code": "Efficiency",
+        "confidence": "high",
+        "provenance": [
+          {
+            "quote": "Analysis of agricultural yields based on the practices adopted reveals that farms that have implemented a coherent set of water-saving practices such as mulching, zaï, crop rotation, or the use of soil amendments achieve higher yields than those relying on intensive approaches.",
+            "char_start": 23748,
+            "char_end": 24026,
+            "match": "exact",
+            "page": null,
+            "note": null
+          },
+          {
+            "quote": "The adoption of water-saving practices contributes to a significant rationalization of water inputs in vegetable farms. This rationalization results in a reduction in the volumes of water applied to crops and a better match between the actual water needs of plants and the quantities of water actually used.",
+            "char_start": 23137,
+            "char_end": 23444,
+            "match": "exact",
+            "page": null,
+            "note": null
+          },
+          {
+            "quote": "They also help reduce the labor required for traditional watering, which is a major advantage for farmers with limited human resources.",
+            "char_start": 19650,
+            "char_end": 19785,
+            "match": "exact",
+            "page": null,
+            "note": null
+          }
+        ],
+        "added_by_reviewer": null,
+        "note": "The clearest instance of this element in the gold set, and the one where your rule needs no interpretation at all. You defined Efficiency as more output per unit of physical input and named water among the inputs. The first quote is exactly that claim: more yield from less water. Labour falls too.\n\nThe evidence is a comparison the authors drew across their 49 interviewed farms, between those using a coherent set of water-saving practices and those using intensive systems. It is their own finding, not borrowed, so RULE 1 and the literature-review rule are satisfied. It is still only reported and not measured, which is why every impact below says perceived.",
+        "for_reviewer": null,
+        "internal_note": null
+      },
+      {
+        "code": "Diversity",
+        "confidence": "medium",
+        "provenance": [
+          {
+            "quote": "I have been using mulching, windbreaks, and intercropping since I started vegetable farming. These practices contribute significantly to improving soil fertility and crop quality. For example, intercropping (tomatoes and turnips) allows two crops to be grown simultaneously with the same amount of work, thereby reducing labor intensity and increasing profitability",
+            "char_start": 20806,
+            "char_end": 21171,
+            "match": "exact",
+            "page": null,
+            "note": "a dated, located interview, so it is the study's own primary data"
+          }
+        ],
+        "added_by_reviewer": null,
+        "note": "Intercropping is one of the water-saving practices the report lists, and under your ruling intercropping earns Diversity rather than Synergies, because two vegetables are one component type. Two species are deliberately grown together on the same bed, which is species diversification and not a change of variety.\n\nConfidence is medium because the evidence is one farmer's account rather than a pattern across the sample. We did NOT take the label from the report's separate observation that producers grow ten vegetable species, because that is the existing cropping pattern of the area rather than anything these practices introduce.",
+        "for_reviewer": null,
+        "internal_note": "Not OPEN 4: this is a farmer's reported practice, not a study's own intercropping RESULT, so it does not test the Synergies-versus-FAO conflict."
+      }
+    ],
+    "principles_considered_and_rejected": {
+      "Resilience": "Full text read 2026-10-07, all 39,847 characters. This is the closest call in the document and we rejected it on two independent grounds. First, the drought claim is bare: \"These systems improve both crop yields and resilience to drought\" has no mechanism and no observation behind it. Second, the mechanism the authors do offer is generic agronomy that survives deletion of the study: \"mulching contributes to soil temperature regulation and limits excessive temperature fluctuations\" and \"reducing the vulnerability of crops to leaf diseases\" are true of mulch everywhere, which is the generic-statement rule you confirmed on 2026-09-14. The stable-soil-moisture argument is the water saving restated, and treating a water saving as resilience was our commonest error in the first collection. If you read mulching for moisture retention in a Sahelian drought as genuine resilience, this is the label to add.",
+      "Synergies": "One farmer says of his practice set: \"the manure comes from my own animals, which lowers my costs, saves me money, conserves water, and improves soil fertility.\" That is livestock to annual crops, which is your worked example. We rejected it because it is a single incidental clause inside a quote about saving money, the report never traces the organic amendments it lists to any source, and no flow between components is part of the practices being analysed. Thin evidence for a label, so we are showing it to you rather than claiming it.",
+      "Recycling": "Same sentence, same problem. \"Adding organic amendments\" is listed among the water-saving practices and one farmer's manure comes from his own animals, but no organic-matter loop is described, traced or measured anywhere in the report. Compare the three graded Recycling cases we put to you from the Agroecology collection; this one is weaker than the weakest of them.",
+      "Co-creation and sharing of knowledge": "Rejected because the participatory approach is recommended for the future, not reported as done: \"school field programs and participatory approaches, which mobilize innovative producers as local relays, are relevant tools.\" The actual channel by which these technologies arrived is project installation, in the report's own words \"generally installed with support from agricultural development projects such as those led by CARITAS, government initiatives, or NGOs\", which is transfer.",
+      "Responsible governance": "Interesting and still rejected. The report proposes water pricing as a regulatory instrument and ends by asking for a municipal territorial water plan that would make water \"a territorial common good, subject to shared rules, collective arbitration, and clear institutional accountability\". That WOULD act on governance rather than operate under it. But it is a proposal. The one thing actually installed is electric meters on mini-boreholes, and a meter measures; it does not govern until a tariff exists. This is the first document where a technology is proposed as a governance instrument, so if you read the element more broadly, say so.",
+      "Culture and food tradition": "Tradition appears here as the thing being replaced, not drawn upon: the traditional wells, the watering can and the perforated bucket are the inefficient comparators. The local term seyane for an open reservoir and the historical reference to the kingdoms of Sine and Saloum are context.",
+      "Human and social values": "Labour hardship is discussed and a companion gender study by the same team is cited, but nothing about equity or well-being is a design feature of these practices or an outcome attributed to them. The labour findings are recorded under the Human Condition domain instead.",
+      "Circular and solidarity economy": "Producer organisations are named as having \"the capacity for collective action\" and market fluctuations are context, but no market or producer-to-consumer link is changed by these practices."
+    },
+    "impact_domains": [
+      {
+        "code": "Environment",
+        "direction": "positive",
+        "assessment_basis": "perceived",
+        "assessment_basis_note": "Perceived, and the report is unusually explicit about why it could not be otherwise: \"the lack of measuring devices to control the volumes withdrawn, such as meters or flow meters\" and a farmer saying \"I don't know exactly how much water I use or what the flow rate is\". We searched the whole document for a cubic metre, a litre, a millimetre and a flow rate and found none.",
+        "confidence": "medium",
+        "provenance": [
+          {
+            "quote": "These techniques not only significantly reduce water loss through evaporation and excessive infiltration, but also optimize water availability for each crop.",
+            "char_start": 19426,
+            "char_end": 19583,
+            "match": "exact",
+            "page": null,
+            "note": null
+          },
+          {
+            "quote": "Today, soil quality is better, moisture is maintained, and yields are stable.",
+            "char_start": 24689,
+            "char_end": 24766,
+            "match": "exact",
+            "page": null,
+            "note": "a farmer's account of his own plots after adopting zaï, mulching and manure"
+          }
+        ],
+        "added_by_reviewer": null,
+        "note": "Positive, and the direction is about the water-SAVING practices, which is how we defined the innovation. The report also analyses the intensive comparators and finds they harm: lance irrigation causes \"significant water losses\" and its jet pressure \"tends to disrupt plant growth, weaken their root systems\". We treated those as the counterfactual rather than as a negative effect of the innovation. Water and soil both sit in Musumba's Environment domain.",
+        "for_reviewer": null,
+        "internal_note": null
+      },
+      {
+        "code": "Productivity",
+        "direction": "positive",
+        "assessment_basis": "perceived",
+        "assessment_basis_note": "Perceived. No yield figure in any unit appears in the document. The comparison is between groups of interviewed farms, as the authors characterised them, not between measured plots.",
+        "confidence": "medium",
+        "provenance": [
+          {
+            "quote": "Analysis of agricultural yields based on the practices adopted reveals that farms that have implemented a coherent set of water-saving practices such as mulching, zaï, crop rotation, or the use of soil amendments achieve higher yields than those relying on intensive approaches.",
+            "char_start": 23748,
+            "char_end": 24026,
+            "match": "exact",
+            "page": null,
+            "note": null
+          },
+          {
+            "quote": "Although the work is hard and demanding, my yields have increased, and I now generate more income.",
+            "char_start": 24420,
+            "char_end": 24518,
+            "match": "exact",
+            "page": null,
+            "note": null
+          }
+        ],
+        "added_by_reviewer": null,
+        "note": "The same sentence carries both the Efficiency element and this domain, which is correct rather than double counting: the element records that the innovation is ABOUT doing more with less water, the domain records that output went UP. Medium confidence, because a comparison between self-selected groups of farms is not a controlled one and the report does not claim it is.",
+        "for_reviewer": null,
+        "internal_note": null
+      },
+      {
+        "code": "Human Condition",
+        "direction": "mixed",
+        "assessment_basis": "perceived",
+        "assessment_basis_note": "Reported by the producers in interviews. Nobody timed any task.",
+        "confidence": "medium",
+        "provenance": [
+          {
+            "quote": "They also help reduce the labor required for traditional watering, which is a major advantage for farmers with limited human resources.",
+            "char_start": 19650,
+            "char_end": 19785,
+            "match": "exact",
+            "page": null,
+            "note": "the labour-saving side, from the piped and drip systems"
+          },
+          {
+            "quote": "Although the work is hard and demanding, my yields have increased, and I now generate more income.",
+            "char_start": 24420,
+            "char_end": 24518,
+            "match": "exact",
+            "page": null,
+            "note": "the labour-costing side, from zaï, mulching and manure"
+          }
+        ],
+        "added_by_reviewer": null,
+        "note": "Mixed, and the mixture is the useful part. The engineered systems, drip and low-pressure sprinklers, REDUCE labour. The soil practices, zaï, mulching and manure, INCREASE it, in the words of the farmer who uses them. So the labour direction depends on which practice, not on the package.\n\nThis is the third labour finding we have recorded in two collections, after the Burkina Faso fodder plots where 65% of farmers reported more work, and the Senegal mycorrhiza report where 62% of women against 4% of men reported the hardship. We have kept labour under Human Condition in all three so they stay comparable.",
+        "for_reviewer": "The same question we asked on the other two: does labour burden belong in Human Condition, where we keep putting it, or in Social? Three documents now turn on it and we would rather fix it once.",
+        "internal_note": null
+      },
+      {
+        "code": "Economic",
+        "direction": "mixed",
+        "assessment_basis": "perceived",
+        "assessment_basis_note": "Perceived, and verified: there is no FCFA figure, no price and no cost anywhere in the report. Equipment is repeatedly called expensive and never costed.",
+        "confidence": "medium",
+        "provenance": [
+          {
+            "quote": "For example, the manure comes from my own animals, which lowers my costs, saves me money, conserves water, and improves soil fertility.",
+            "char_start": 24284,
+            "char_end": 24419,
+            "match": "exact",
+            "page": null,
+            "note": "the saving side"
+          },
+          {
+            "quote": "The high cost of the necessary equipment, combined with the irregularity of income from agricultural activities and the financial precariousness of most producers, severely limits their investment capacity.",
+            "char_start": 25979,
+            "char_end": 26185,
+            "match": "exact",
+            "page": null,
+            "note": "the barrier side, and the report's main explanation for low adoption"
+          }
+        ],
+        "added_by_reviewer": null,
+        "note": "Mixed, and the two sides are about different things rather than in conflict. The practices that cost nothing to adopt, mulch and manure, save money. The systems that save the most water, drip and low-pressure sprinklers, cost more than the producers can finance, which the report names as the main barrier to adoption. One farmer's words put both together: traditional practices \"although recognized as ineffective in the long term, remain the only accessible option due to their low initial cost\".",
+        "for_reviewer": null,
+        "internal_note": null
+      }
+    ],
+    "domains_considered_and_rejected": {
+      "Social": "Full text read 2026-10-07. Collective action appears only as an absence: \"the difficulties in organizing producers around a common goal reduce the prospects for collective action\". Water pricing acceptance is reported from a single quote. Nothing social is measured or observed as an outcome of these practices, so there is no finding here, only a constraint."
+    },
+    "geolocation": {
+      "country_from_metadata": [
+        "Senegal"
+      ],
+      "iso2": [
+        "SN"
+      ],
+      "region_from_metadata": [
+        "Africa",
+        "Western Africa",
+        "Sub-Saharan Africa"
+      ],
+      "subregion_in_metadata": [],
+      "subnational_extracted_from_text": [
+        {
+          "name": "Fatick Region",
+          "admin_level": "region",
+          "context": "population about 933,000, over 84% rural; the Groundnut Basin"
+        },
+        {
+          "name": "Fatick Department",
+          "admin_level": "department",
+          "context": "contains both study municipalities"
+        },
+        {
+          "name": "Ndiob",
+          "admin_level": "commune or municipality",
+          "context": "study municipality, the larger share of the 49 interviewed market gardeners"
+        },
+        {
+          "name": "Niakhar",
+          "admin_level": "commune or municipality",
+          "context": "study municipality; market gardening being abandoned for arboriculture as soils salinise"
+        },
+        {
+          "name": "Sine dead valley",
+          "admin_level": "hydrological feature",
+          "context": "crosses both municipalities and supplies the shared shallow groundwater"
+        },
+        {
+          "name": "Bâko Dior",
+          "admin_level": "village",
+          "context": "sampled village, Ndiob municipality (column 1 of the table); interview 18 and 19 December 2025; electric meter photographed here"
+        },
+        {
+          "name": "Bâko Serere",
+          "admin_level": "village",
+          "context": "sampled village, Ndiob municipality (column 1 of the table)"
+        },
+        {
+          "name": "Fintele",
+          "admin_level": "village",
+          "context": "sampled village, Ndiob municipality (column 1 of the table)"
+        },
+        {
+          "name": "Mbenengor",
+          "admin_level": "village",
+          "context": "sampled village, Ndiob municipality (column 1 of the table)"
+        },
+        {
+          "name": "Bakon Ndieme",
+          "admin_level": "village",
+          "context": "sampled village, Ndiob municipality (column 1 of the table)"
+        },
+        {
+          "name": "Sérèle",
+          "admin_level": "village",
+          "context": "sampled village, Ndiob municipality (column 1 of the table)"
+        },
+        {
+          "name": "Mbaye-Tolé",
+          "admin_level": "village",
+          "context": "sampled village, Ndiob municipality (column 1 of the table); interview 21 December 2025"
+        },
+        {
+          "name": "Ndiob-escale",
+          "admin_level": "village",
+          "context": "sampled village, Ndiob municipality (column 1 of the table)"
+        },
+        {
+          "name": "Mbélokh",
+          "admin_level": "village",
+          "context": "sampled village, Ndiob municipality (column 1 of the table)"
+        },
+        {
+          "name": "Diaraaf",
+          "admin_level": "village",
+          "context": "sampled village, Ndiob municipality (column 1 of the table)"
+        },
+        {
+          "name": "Sanghaie",
+          "admin_level": "village",
+          "context": "sampled village, Niakhar municipality (column 2 of the table)"
+        },
+        {
+          "name": "Podome",
+          "admin_level": "village",
+          "context": "sampled village, Niakhar municipality (column 2 of the table)"
+        },
+        {
+          "name": "Sorokh",
+          "admin_level": "village",
+          "context": "sampled village, Niakhar municipality (column 2 of the table)"
+        },
+        {
+          "name": "Conème",
+          "admin_level": "village",
+          "context": "sampled village, Niakhar municipality (column 2 of the table); interviews 23 and 25 December 2025"
+        },
+        {
+          "name": "Niakhar",
+          "admin_level": "village",
+          "context": "sampled village, Niakhar municipality (column 2 of the table)"
+        },
+        {
+          "name": "Mboudaye",
+          "admin_level": "village",
+          "context": "sampled village, Niakhar municipality (column 2 of the table)"
+        },
+        {
+          "name": "Godagène",
+          "admin_level": "village",
+          "context": "sampled village, Niakhar municipality (column 2 of the table)"
+        },
+        {
+          "name": "Mbafaye",
+          "admin_level": "village",
+          "context": "sampled village, Niakhar municipality (column 2 of the table)"
+        },
+        {
+          "name": "Ndoss",
+          "admin_level": "village",
+          "context": "sampled village, Niakhar municipality (column 2 of the table)"
+        }
+      ],
+      "lat": null,
+      "lon": null,
+      "geocoder": null,
+      "confidence": "medium",
+      "provenance": [
+        {
+          "quote": "The municipalities of Ndiob and Niakhar (Fatick Department), where agriculture is the dominant economic activity, particularly market gardening, have been facing increasing water stress for several years.",
+          "char_start": 4497,
+          "char_end": 4701,
+          "match": "exact",
+          "page": null,
+          "note": null
+        },
+        {
+          "quote": "The two municipalities are crossed by the Sine dead valley, which provides a groundwater table that is easily accessible by wells.",
+          "char_start": 4702,
+          "char_end": 4832,
+          "match": "exact",
+          "page": null,
+          "note": "the shared aquifer that makes the scale question real"
+        }
+      ],
+      "note": "Nineteen villages recovered from a two-column table, and you should know how, because the method is an inference rather than a reading.\n\nThe sampling table has two columns, Ndiob areas and Niakhar areas. BOTH extractors, CGSpace and PyMuPDF, flatten it into one run of nineteen names with the two headers at the front, so nothing in the extracted text says which village sits in which municipality. README section 7 records that TEXT bundles preserve page LAYOUT rather than reading order; this is the first time it has cost us data rather than just mangled a quote.\n\nWe decoded it by assuming the names alternate row by row, column 1 then column 2. That assumption is checked against the three villages the report attributes independently, in dated interview footnotes: Bâko Dior and Mbaye-Tolé are named as Ndiob and both land in column 1; Conème is named as Niakhar and lands in column 2. Three for three. Ndiob gets ten villages and Niakhar nine, which also fits the report's remark that Ndiob has notably more producers.\n\nConfidence is medium because it is still an inference from layout. If any of these village attributions looks wrong to you, the whole decoding is wrong and we will drop back to the three we can prove.",
+      "for_reviewer": null,
+      "internal_note": "Multi-column interleaving, first instance where it cost DATA. Decoded by column alternation, validated on 3 independent footnote attributions. Record the method in decisions.md: it is cheap and it is checkable."
+    }
+  }
+}

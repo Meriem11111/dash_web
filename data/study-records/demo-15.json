@@ -1,0 +1,144 @@
+{
+  "schema_version": "2",
+  "rulebook_version": "1.0 (2026-09-14)",
+  "provenance_basis": "MOCK: illustrative UI fixture; not extracted from a publication",
+  "extracted_at": "2026-10-16",
+  "extracted_by": "mock-data",
+  "reviewer_brief": "Demo record. Countries, dates, classifications and impacts are synthetic; do not cite as research evidence.",
+  "deterministic": {
+    "item_uuid": "fa66f826-131c-592d-b0de-ac961afa8ce2",
+    "handle": "",
+    "url": "https://cgspace.cgiar.org/collections/906d7b6e-625e-4fa4-8022-9e8e6804232a/search",
+    "title": "[Demo] Crop rotations and integrated pest management in Kenya",
+    "authors": [],
+    "affiliations": [],
+    "issued": "2026-06",
+    "type": "Report",
+    "language": "en",
+    "access_rights": "",
+    "license": "",
+    "donors": [],
+    "programs": [
+      "Sustainable Farming"
+    ],
+    "initiatives": [],
+    "collections": [
+      "SP Sustainable Farming"
+    ],
+    "country": [
+      "Kenya"
+    ],
+    "country_iso2": [
+      "KE"
+    ],
+    "region": [
+      "Africa"
+    ],
+    "subregion": [],
+    "pdf_bitstream_uuid": "",
+    "text_chars_cgspace": 0,
+    "text_chars_full_pdf": 0,
+    "cgspace_text_truncated": false
+  },
+  "probabilistic": {
+    "is_technological_innovation": {
+      "value": true,
+      "confidence": "low",
+      "provenance": [],
+      "innovation_name": "Crop rotations and integrated pest management in Kenya",
+      "innovation_count": "1",
+      "rejection_test": null,
+      "note": "MOCK classification for testing the interface; no publication was evaluated.",
+      "for_reviewer": null,
+      "internal_note": ""
+    },
+    "scale": {
+      "value": "farm",
+      "confidence": "low",
+      "provenance": [],
+      "note": "MOCK application scale.",
+      "for_reviewer": "",
+      "internal_note": ""
+    },
+    "agroecological_principles": [
+      {
+        "code": "Diversity",
+        "confidence": "low",
+        "provenance": [],
+        "added_by_reviewer": null,
+        "note": "MOCK label for interface demonstration; no evidence claim.",
+        "for_reviewer": null,
+        "internal_note": null
+      },
+      {
+        "code": "Resilience",
+        "confidence": "low",
+        "provenance": [],
+        "added_by_reviewer": null,
+        "note": "MOCK label for interface demonstration; no evidence claim.",
+        "for_reviewer": null,
+        "internal_note": null
+      }
+    ],
+    "principles_considered_and_rejected": {
+      "Resilience": "",
+      "Synergies": "",
+      "Recycling": "",
+      "Co-creation and sharing of knowledge": "",
+      "Responsible governance": "",
+      "Culture and food tradition": "",
+      "Human and social values": "",
+      "Circular and solidarity economy": ""
+    },
+    "impact_domains": [
+      {
+        "code": "Environment",
+        "direction": "positive",
+        "assessment_basis": "perceived",
+        "assessment_basis_note": "MOCK perceived-positive classification, provided solely to exercise the schema and interface. No actual research finding is asserted.",
+        "confidence": "low",
+        "provenance": [],
+        "added_by_reviewer": null,
+        "note": "MOCK label for interface demonstration; no evidence claim.",
+        "for_reviewer": null,
+        "internal_note": null
+      },
+      {
+        "code": "Productivity",
+        "direction": "positive",
+        "assessment_basis": "perceived",
+        "assessment_basis_note": "MOCK perceived-positive classification, provided solely to exercise the schema and interface. No actual research finding is asserted.",
+        "confidence": "low",
+        "provenance": [],
+        "added_by_reviewer": null,
+        "note": "MOCK label for interface demonstration; no evidence claim.",
+        "for_reviewer": null,
+        "internal_note": null
+      }
+    ],
+    "domains_considered_and_rejected": {
+      "Social": ""
+    },
+    "geolocation": {
+      "country_from_metadata": [
+        "Kenya"
+      ],
+      "iso2": [
+        "KE"
+      ],
+      "region_from_metadata": [
+        "Africa"
+      ],
+      "subregion_in_metadata": [],
+      "subnational_extracted_from_text": [],
+      "lat": null,
+      "lon": null,
+      "geocoder": null,
+      "confidence": "low",
+      "provenance": [],
+      "note": "MOCK location; country-level display only.",
+      "for_reviewer": null,
+      "internal_note": ""
+    }
+  }
+}
