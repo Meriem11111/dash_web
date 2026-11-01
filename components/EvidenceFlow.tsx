@@ -9,6 +9,7 @@ import {
   type SankeyNode,
 } from "d3-sankey";
 import type { Study } from "@/lib/getStudies";
+import { evidencePalette, referencePalette } from "@/lib/referencePalette";
 
 export type FlowKind = "country" | "principle" | "domain";
 type NodeDatum = { id: string; label: string; kind: FlowKind };
@@ -30,16 +31,22 @@ const NONE: Record<FlowKind, string> = {
 };
 const PLACEHOLDERS = new Set([OTHER, ...Object.values(NONE)]);
 
-const PALETTE = [
-  "#35bba5", "#9c88d2", "#4396af", "#708bcd", "#7ebda1",
-  "#b49aca", "#b0a474", "#5da9a7", "#b87d91", "#8697bb",
-  "#8cab77", "#c09d80", "#798bc8",
-];
-const COUNTRY_FILL = "#338c80";
-const DOMAIN_FILL = "#9c88d2";
+const PALETTE = evidencePalette;
+const COUNTRY_FILL = referencePalette.turquoise;
+const DOMAIN_FILL = referencePalette.periwinkle;
+
+// Choose readable labels for both the pale and deep chart colors.
+const labelColor = (hex: string) => {
+  const [r, g, b] = hex.slice(1).match(/../g)!.map(channel => {
+    const value = parseInt(channel, 16) / 255;
+    return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.179 ? "#000000" : "#ffffff";
+};
 
 const unique = (xs: string[]) => Array.from(new Set(xs));
 const trunc = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1) + "…" : s);
+const svgNumber = (value: number | undefined) => Number((value ?? 0).toFixed(3));
 
 function buildGraph(studies: Study[]) {
   // how many studies per country → keep the biggest ones
@@ -102,14 +109,29 @@ export default function EvidenceFlow({ studies, colorLabels, selected, onPick }:
       .nodeId((d) => d.id)
       .nodeWidth(NODE_W)
       .nodePadding(3)
-      .nodeSort((a, b) => a.label.localeCompare(b.label))
+      .nodeSort((a, b) => a.label < b.label ? -1 : a.label > b.label ? 1 : 0)
       .extent([[0, TOP], [W, H - 20]]);
     // d3-sankey mutates its input, so give it fresh copies
     const input = {
       nodes: g.nodes.map((n) => ({ ...n })),
       links: g.links.map((l) => ({ ...l })),
     } as unknown as SankeyGraph<NodeDatum, LinkDatum>;
-    return generator(input);
+    const graph = generator(input);
+    // D3's relaxation can differ by tiny floating-point amounts between
+    // runtimes. Normalize only drawing geometry so server and browser SVG
+    // match exactly; study values and weighted contributions stay untouched.
+    for (const node of graph.nodes) {
+      node.x0 = svgNumber(node.x0);
+      node.x1 = svgNumber(node.x1);
+      node.y0 = svgNumber(node.y0);
+      node.y1 = svgNumber(node.y1);
+    }
+    for (const link of graph.links) {
+      link.y0 = svgNumber(link.y0);
+      link.y1 = svgNumber(link.y1);
+      link.width = svgNumber(link.width);
+    }
+    return graph;
   }, [studies]);
 
   // one color per principle (used by the links and the middle column)
@@ -143,9 +165,9 @@ export default function EvidenceFlow({ studies, colorLabels, selected, onPick }:
   const links = layout.links as Lk[];
 
   const focusedNode = nodes.find(n => n.id === hover);
-  const detail = focusedNode ? `${focusedNode.label} · ${new Set(studies.filter(s => focusedNode.kind === "country" ? (focusedNode.label === OTHER ? s.Countries.some(c => !nodes.some(n => n.kind === "country" && n.label === c)) : s.Countries.includes(focusedNode.label)) : focusedNode.kind === "principle" ? s.Principles.includes(focusedNode.label) : s.Domains.includes(focusedNode.label)).map(s => s.id)).size} study records` : "Hover or focus a segment to inspect its connections. Click or press Enter to filter.";
+  const detail = focusedNode ? `${focusedNode.label} · ${new Set(studies.filter(s => focusedNode.kind === "country" ? (focusedNode.label === OTHER ? s.Countries.some(c => !nodes.some(n => n.kind === "country" && n.label === c)) : s.Countries.includes(focusedNode.label)) : focusedNode.kind === "principle" ? s.Principles.includes(focusedNode.label) : s.Domains.includes(focusedNode.label)).map(s => s.id)).size} study records` : "Move your pointer over a colored block to highlight its connections. Click the block to show matching studies.";
   const header = (x: number, number: string, label: string) => <g>
-    <text x={x} y={17} fontSize={10} letterSpacing={1.5} fill="var(--teal)">{number}</text>
+    <text x={x} y={17} fontSize={10} letterSpacing={1.5} fill="var(--flow-heading-color, var(--teal))">{number}</text>
     <text x={x} y={38} fontSize={13} fontWeight={500} fill="var(--ink)">{label}</text>
   </g>;
   function labelLines(label: string) {
@@ -171,19 +193,19 @@ export default function EvidenceFlow({ studies, colorLabels, selected, onPick }:
               const source = l.source as N;
               const target = l.target as N;
               const active = hover === null || source.id === hover || target.id === hover;
-              return <path key={i} d={path(l) ?? ""} stroke={linkColor(l)} strokeWidth={l.width ?? 0} strokeOpacity={active ? (hover ? 0.85 : 0.48) : 0.06} style={{ transition: "stroke-opacity .18s" }}><title>{`${source.label} → ${target.label}: ${l.value.toFixed(2)} weighted study contributions`}</title></path>;
+              return <path key={i} d={path(l) ?? ""} stroke={linkColor(l)} strokeWidth={l.width ?? 0} strokeOpacity={active ? (hover ? 0.85 : "var(--flow-ribbon-opacity, 0.48)") : 0.06} style={{ transition: "stroke-opacity .18s" }}><title>{`${source.label} → ${target.label}: ${l.value.toFixed(2)} weighted study contributions`}</title></path>;
             })}
           </g>
           {nodes.map(n => {
             const x0 = n.x0 ?? 0;
             const y0 = n.y0 ?? 0;
-            const h = (n.y1 ?? 0) - y0;
+            const h = svgNumber((n.y1 ?? 0) - y0);
             const clickable = !PLACEHOLDERS.has(n.label) && Boolean(onPick);
             const lines = labelLines(n.label);
             const visibleLines = h >= lines.length * 13 + 2 ? lines : [trunc(n.label.replaceAll("_", " "), 23)];
             return <g key={n.id} className="flow-node" role={clickable ? "button" : "graphics-symbol"} tabIndex={clickable ? 0 : undefined} aria-label={`${n.label}. ${clickable ? "Select to toggle filter." : "Grouped or unspecified evidence."}`} aria-pressed={clickable ? isSelected(n) : undefined} onMouseEnter={() => setHover(n.id)} onMouseLeave={() => setHover(null)} onFocus={() => setHover(n.id)} onBlur={() => setHover(null)} onClick={() => clickable && onPick?.(n.kind, n.label)} onKeyDown={e => { if (clickable && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); onPick?.(n.kind, n.label); } }} style={{ cursor: clickable ? "pointer" : "default" }}>
               <rect x={x0} y={y0} width={NODE_W} height={Math.max(h, 0.5)} fill={fillOf(n)} stroke={isSelected(n) ? "var(--ink)" : "var(--surface-alt)"} strokeWidth={isSelected(n) ? 2.5 : 1} />
-              {h >= 13 && <text x={x0 + NODE_W / 2} y={y0 + h / 2 - (visibleLines.length - 1) * 6.5} dy=".35em" textAnchor="middle" fontSize={11} fontWeight={600} fill={n.kind === "domain" ? "#161c29" : "#fff"} pointerEvents="none">{visibleLines.map((line, i) => <tspan key={i} x={x0 + NODE_W / 2} dy={i === 0 ? 0 : 13}>{line}</tspan>)}</text>}
+              {h >= 13 && <text x={x0 + NODE_W / 2} y={svgNumber(y0 + h / 2 - (visibleLines.length - 1) * 6.5)} dy=".35em" textAnchor="middle" fontSize={11} fontWeight={600} fill={labelColor(fillOf(n))} pointerEvents="none">{visibleLines.map((line, i) => <tspan key={i} x={x0 + NODE_W / 2} dy={i === 0 ? 0 : 13}>{line}</tspan>)}</text>}
               <title>{`${n.label}: ${(n.value ?? 0).toFixed(2)} weighted study contributions`}</title>
             </g>;
           })}

@@ -18,6 +18,8 @@ The original legacy `data/studies.json` is unchanged and is no longer the active
 
 ## Data boundary and Supabase migration
 
+The site's requested map presentation combines the Morocco and Western Sahara source polygons under the label “Morocco.” `data/map-morocco.json` contains the derived exterior boundary, regenerated with `node scripts/generate-morocco-map.mjs`; the original `world.json` and study records are preserved. `lib/countryDisplay.ts` groups the source country labels consistently in the normalized display, so map shading, country filters, chart links and study counts use the same grouping. Multiple source labels on one study are deduplicated.
+
 The flow is:
 
 `lib/studySource.ts` → `lib/normalizeStudies.ts` → `getStudies()` → pages, charts and map.

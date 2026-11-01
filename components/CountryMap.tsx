@@ -8,7 +8,9 @@ import { useEffect, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 // World countries (Natural Earth 50m recommended), saved as src/data/world.json
 import worldData from "@/data/world.json";
+import moroccoDisplay from "@/data/map-morocco.json";
 import regionCodes from "@/data/map-regions.json";
+import { referencePalette } from "@/lib/referencePalette";
 
 /* ---------- Regions (ISO-2 codes) ---------- */
 type RegionName = keyof typeof regionCodes;
@@ -33,9 +35,10 @@ const nameOf = (f: Feature): string => {
   return String(p.name ?? p.NAME ?? p.ADMIN ?? "");
 };
 
-const features = (worldData as unknown as FeatureCollection).features.filter(
-  (f) => regionOfIso[isoOf(f)]
-);
+// Apply the site's requested display boundary without editing source geography.
+const features = (worldData as unknown as FeatureCollection).features
+  .filter(f => regionOfIso[isoOf(f)] && isoOf(f) !== "EH")
+  .map(f => isoOf(f) === "MA" ? moroccoDisplay as Feature : f);
 const mapData: FeatureCollection = { type: "FeatureCollection", features };
 const mapNames = new Set(features.map(nameOf));
 
@@ -59,14 +62,14 @@ const centers = features.map((f) => ({
 const LABEL_ZOOM = 4.5; // country names + counts appear from this zoom level
 
 const LEVELS = [
-  { min: 25, color: "#134e2f", label: "25+" },
-  { min: 12, color: "#2f7d4f", label: "12 – 24" },
-  { min: 5, color: "#6aa874", label: "5 – 11" },
-  { min: 1, color: "#b9d9a8", label: "1 – 4" },
-  { min: 0, color: "#e9e6da", label: "No studies" },
+  { min: 25, color: referencePalette.deepTeal, label: "25+" },
+  { min: 12, color: referencePalette.turquoise, label: "12 – 24" },
+  { min: 5, color: referencePalette.aqua, label: "5 – 11" },
+  { min: 1, color: referencePalette.paleMint, label: "1 – 4" },
+  { min: 0, color: referencePalette.gray, label: "No studies" },
 ];
 const colorFor = (n: number) => LEVELS.find((l) => n >= l.min)!.color;
-const HOVER_BORDER = "#0E3715";
+const HOVER_BORDER = referencePalette.charcoal;
 
 /* ---------- current zoom level, updates when the user zooms ---------- */
 function useZoom() {
@@ -85,10 +88,10 @@ function Controls({ home }: { home: LatLngBounds }) {
   }, []);
 
   const btn =
-    "flex h-9 w-9 items-center justify-center rounded-full bg-white text-lg font-medium text-[#134e2f] shadow-md transition hover:bg-[#f0f5ea]";
+    "flex h-9 w-9 items-center justify-center rounded-full bg-white text-lg font-medium text-[#30383f] shadow-md transition hover:underline";
 
   return (
-    <div ref={ref} className="absolute right-4 top-4 z-[1000] flex flex-col gap-2">
+    <div ref={ref} className="map-controls absolute right-4 top-4 z-[1000] flex flex-col gap-2">
       <button aria-label="Zoom in" className={btn} onClick={() => map.zoomIn()}>+</button>
       <button aria-label="Zoom out" className={btn} onClick={() => map.zoomOut()}>−</button>
       <button aria-label="Reset view" className={btn} onClick={() => map.fitBounds(home)}>⤢</button>
@@ -105,9 +108,9 @@ function Legend() {
 
   return (
     <div ref={ref} className="absolute bottom-4 left-4 z-[1000] rounded-xl bg-white/95 px-4 py-3 text-xs shadow-md">
-      <p className="mb-2 font-semibold text-[#0E3715]">Number of studies</p>
+      <p className="mb-2 font-semibold text-[#232326]">Number of studies</p>
       {LEVELS.map((l) => (
-        <div key={l.label} className="flex items-center gap-2 py-0.5 text-gray-700">
+        <div key={l.label} className="flex items-center gap-2 py-0.5 text-[#30383f]">
           <span className="h-3 w-5 rounded-sm" style={{ backgroundColor: l.color }} />
           {l.label}
         </div>
@@ -126,14 +129,14 @@ function RegionTabs({ view, onChange }: { view: View; onChange: (v: View) => voi
   return (
     <div
       ref={ref}
-      className="absolute left-1/2 top-4 z-[1000] flex -translate-x-1/2 gap-1 rounded-full bg-white p-1 text-sm shadow-md"
+      className="map-region-tabs absolute left-1/2 top-4 z-[1000] flex -translate-x-1/2 gap-1 bg-white p-1 text-sm shadow-md"
     >
       {VIEWS.map((v) => (
         <button
           key={v}
           onClick={() => onChange(v)}
           className={`whitespace-nowrap rounded-full px-3 py-1.5 font-medium transition ${
-            v === view ? "bg-[#134e2f] text-white" : "text-[#134e2f] hover:bg-[#f0f5ea]"
+            v === view ? "bg-[#30383f] text-white" : "text-[#30383f] hover:underline"
           }`}
         >
           {v}
@@ -174,7 +177,7 @@ function CountryLabels({ counts }: { counts: Record<string, number> }) {
           className: "",
           iconSize: [110, 34],
           iconAnchor: [55, 17],
-          html: `<div style="text-align:center;font:600 11px sans-serif;color:#0E3715;text-shadow:0 0 3px #fff,0 0 3px #fff;pointer-events:none">${name}${countText}</div>`,
+          html: `<div style="text-align:center;font:600 11px sans-serif;color:#232326;text-shadow:0 0 3px #fff,0 0 3px #fff;pointer-events:none">${name}${countText}</div>`,
         });
         return <Marker key={name} position={center} icon={icon} interactive={false} />;
       })}
@@ -235,6 +238,21 @@ export default function StudyMap({ counts, selected = "All", onSelect }: Props) 
     );
 
     layer.on({
+      add: () => {
+        if (!(layer instanceof L.Path)) return;
+        const element = layer.getElement();
+        if (!element) return;
+        element.setAttribute("data-country", name);
+        element.setAttribute("role", "button");
+        element.setAttribute("tabindex", "0");
+        element.setAttribute("aria-label", `${name}. Select to filter studies.`);
+        element.addEventListener("keydown", event => {
+          if (!(event instanceof KeyboardEvent) || (event.key !== "Enter" && event.key !== " ")) return;
+          event.preventDefault();
+          event.stopPropagation();
+          onSelectRef.current?.(name === selectedRef.current ? "All" : name);
+        });
+      },
       mouseover: (e) => {
         const path = e.target as L.Path;
         path.setStyle({ weight: 2.5, color: HOVER_BORDER });
@@ -249,12 +267,12 @@ export default function StudyMap({ counts, selected = "All", onSelect }: Props) 
   };
 
   return (
-    <div className="relative overflow-hidden rounded-md border border-line bg-white">
+    <div className="study-map relative bg-white">
       {/* "Back" button, only visible when a country is selected */}
       {selected !== "All" && (
         <button
           onClick={() => onSelect?.("All")}
-          className="absolute left-4 top-16 z-[1000] rounded-full bg-white px-4 py-2 text-sm font-medium text-[#134e2f] shadow-md hover:bg-[#f0f5ea]"
+          className="absolute left-4 top-16 z-[1000] rounded-full bg-white px-4 py-2 text-sm font-medium text-[#30383f] shadow-md hover:underline"
         >
           ← {view === "All" ? "All regions" : view}
         </button>
@@ -266,7 +284,7 @@ export default function StudyMap({ counts, selected = "All", onSelect }: Props) 
         maxBoundsViscosity={0.8}
         minZoom={2}
         zoomSnap={0.25}
-        style={{ height: "520px", width: "100%", background: "var(--map-water)" }}
+        style={{ height: "clamp(320px, 65svh, 520px)", width: "100%", background: "var(--map-water)" }}
         zoomControl={false}
         attributionControl={true}
         scrollWheelZoom={false}

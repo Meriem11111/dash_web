@@ -1,3 +1,5 @@
+import { displayCountryName } from "@/lib/countryDisplay";
+
 /**
  * One Study = one publication (one CGSpace item).
  * A study can have several countries, principles and domains, so those are arrays.
@@ -45,7 +47,7 @@ function fromSchema(r: Rec): Study {
     Title: str(d.title),
     Url: str(d.url),
     Year: str(d.issued).slice(0, 4),
-    Countries: unique(countries),
+    Countries: unique(countries.map(displayCountryName)),
     Regions: unique(list(d.region)),
     Scale: str(p.scale?.value) || "Unspecified",
     Principles: unique(
@@ -77,7 +79,7 @@ function fromFlat(r: Rec, i: number): Study {
     Title: pick(r, "Study_Title_or_Source", "Title"),
     Url: "",
     Year: "",
-    Countries: country ? [country] : [],
+    Countries: country ? [displayCountryName(country)] : [],
     Regions: [],
     Scale: pick(r, "Scale") || "Unspecified",
     Principles: principle ? [principle] : [],
