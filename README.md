@@ -22,7 +22,7 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Study data
 
-The app reads schema-v2 JSON files from `data/study-records/`. The preview includes the supplied teammate record and 2,171 labeled demo records covering all 117 map countries. Regenerate the regional demo batches with `node scripts/generate-demo-coverage.mjs`. The original `data/studies.json` remains unchanged.
+The app reads schema-v2 JSON files from `data/study-records/`. The preview includes the supplied teammate record and 4,043 labeled demo records covering all 117 map countries and all 11 programs and initiatives. Each entry supports the same program → study selection → dashboard workflow. Regenerate the regional demo batches with `node scripts/generate-demo-coverage.mjs` (Node.js 22.18+). Verify all 11 selection workflows with `npm run test:programs`. The original `data/studies.json` remains unchanged.
 
 For the Supabase migration, replace only `fetchStudyRecords()` in `lib/studySource.ts`; it returns raw records to the shared normalizer. The pages, charts, map and selected-study dashboard keep the same data contract. See [data integration notes](data/INTEGRATION.md) for collection matching and replacing the demo files.
 

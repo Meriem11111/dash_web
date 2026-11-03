@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Landscape Evidence | CIMMYT · CGIAR",
-  description: "Explore CGIAR Science Programs and connect studies, countries, agroecological principles and outcomes across landscapes and food systems.",
+  description: "Explore CGIAR programs and initiatives and connect studies, countries, agroecological principles and outcomes across landscapes and food systems.",
 };
 
 export default function RootLayout({

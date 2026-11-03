@@ -5,8 +5,9 @@ import Image from "next/image";
 import heroPhoto from "@/public/photos/vineyard-aerial.jpg";
 import SiteHeader from "@/components/SiteHeader";
 import ProgramsLink from "@/components/ProgramsLink";
+import ProgramCarousel from "@/components/ProgramCarousel";
 import { getStudies } from "@/lib/getStudies";
-import { programs } from "@/lib/programs";
+import { programs, programLabel } from "@/lib/programs";
 import { scopeStudies } from "@/lib/studyScope";
 
 const photos = [
@@ -17,7 +18,6 @@ const photos = [
 
 export default async function Page() {
   const studies = await getStudies();
-  const demoCount = studies.filter(study => study.Mock).length;
 
   return <div className="discovery-home" id="top">
     <SiteHeader active="home" />
@@ -34,11 +34,17 @@ export default async function Page() {
 
     <main className="discovery-main">
       <section className="discovery-programs" aria-labelledby="programs-title">
-        <div className="discovery-section-head"><div><p className="discovery-label">01 / Discover the science</p><h2 id="programs-title">Three programs.<br /><em>A shared future.</em></h2></div></div>
-        <div id="programs" className="discovery-program-grid">{programs.map((program, index) => <Link key={program.slug} className={`discovery-program-card program-photo-${index}`} href={`/programs/${program.slug}`}>
-          <div className="program-photo"><Image src={photos[index].src} alt={photos[index].alt} fill sizes="(max-width: 600px) calc(100vw - 36px), (max-width: 900px) 38vw, (min-width: 1800px) 450px, (min-width: 1320px) 398px, 33vw" /><span className="program-photo-tag">CGIAR Science Program</span><span className="program-open"><Icon name="arrow-right" /></span></div>
-          <div className="program-description"><span className="program-number">0{index + 1}</span><h3>{program.name}</h3><p>{program.tagline}</p><div className="program-card-meta"><span>{scopeStudies(studies, program).length} study records{demoCount ? " · Preview" : ""}</span><span>Explore program <Icon name="arrow-right" /></span></div></div>
-        </Link>)}</div>
+        <div className="discovery-section-head"><div><p className="discovery-label">01 / Discover the science</p><h2 id="programs-title">{programs.length} programs and initiatives.<br /><em>A shared future.</em></h2></div></div>
+        <ProgramCarousel total={programs.length}>{programs.map((program, index) => {
+          const originalPhotoIndex = ["multifunctional-landscapes", "sustainable-animal-and-aquatic-foods", "sustainable-farming"].indexOf(program.slug);
+          const photoIndex = originalPhotoIndex < 0 ? index % photos.length : originalPhotoIndex;
+          const photo = photos[photoIndex];
+          const programStudies = scopeStudies(studies, program);
+          const hasDemo = programStudies.some(study => study.Mock);
+          return <Link key={program.slug} className={`discovery-program-card program-photo-${photoIndex}`} href={`/programs/${program.slug}`}>
+          <div className="program-photo"><Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 600px) 82vw, (max-width: 900px) 46vw, (min-width: 1800px) 450px, (min-width: 1320px) 398px, 33vw" /><span className="program-photo-tag">{programLabel(program)}</span></div>
+          <div className="program-description"><span className="program-number">{String(index + 1).padStart(2, "0")}</span><h3>{program.name}</h3><p>{program.tagline}</p><div className="program-card-meta"><span>{programStudies.length ? `${programStudies.length} study records${hasDemo ? " · Preview" : ""}` : "Awaiting study imports"}</span><span>Explore {program.kind === "initiative" ? "initiative" : "program"} <Icon name="arrow-right" /></span></div></div>
+        </Link>})}</ProgramCarousel>
         <div className="programs-followup"><p>Start with a question. Find your program. Follow the evidence from research to practice, and explore the connections that matter to you.</p><Link href="/dashboard" className="primary-button all-studies-button">Explore all studies <Icon name="arrow-right" /></Link></div>
       </section>
     </main>

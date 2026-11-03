@@ -86,7 +86,7 @@ export default function Dashboard({ studies, selected = false, programSlug }: { 
         </section>
         <section id="coverage" className="visual-section"><div className="section-heading"><div><p className="eyebrow">02 / Geographical coverage</p><h2>Where the evidence comes from</h2><p>Select a country on the map to focus your view. Use the tabs to explore each region.</p></div></div><EvidenceScreenshot kind="map"><CountryMap counts={counts} selected={country} onSelect={setCountry} /></EvidenceScreenshot><p className="map-note">Map shading reflects the scale, principle and domain filters. Country selection focuses the flow and study records.</p></section>
         <section id="records" className="visual-section"><div className="section-heading"><div><p className="eyebrow">03 / The evidence base</p><h2>A closer look at the research</h2><p>Browse the study records behind the connections.</p></div><button className="outline-button" onClick={exportStudies}>Export CSV <Icon name="download" /></button></div><StudyTable key={`${country}|${scale}|${principle}|${domain}`} studies={filteredStudies} /></section>
-        <footer className="site-footer"><span>CIMMYT / CGIAR</span><span>CGIAR Science Programs · Evidence Synthesis</span><a href="#top">Back to top ↑</a></footer>
+        <footer className="site-footer"><span>CIMMYT / CGIAR</span><span>CGIAR Programs and Initiatives · Evidence Synthesis</span><a href="#top">Back to top ↑</a></footer>
       </main>
     </div>
   );
