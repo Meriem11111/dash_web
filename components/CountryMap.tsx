@@ -4,13 +4,14 @@ import { MapContainer, GeoJSON, Marker, useMap, useMapEvents } from "react-leafl
 import L from "leaflet";
 import type { Layer, PathOptions, LatLngBounds } from "leaflet";
 import type { Feature, FeatureCollection } from "geojson";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 // World countries (Natural Earth 50m recommended), saved as src/data/world.json
 import worldData from "@/data/world.json";
 import moroccoDisplay from "@/data/map-morocco.json";
 import regionCodes from "@/data/map-regions.json";
 import { referencePalette } from "@/lib/referencePalette";
+import { createMapLevels, isMapColor, studyCountColor, type MapLevel } from "@/lib/mapColorScale";
 
 /* ---------- Regions (ISO-2 codes) ---------- */
 type RegionName = keyof typeof regionCodes;
@@ -61,15 +62,8 @@ const centers = features.map((f) => ({
 
 const LABEL_ZOOM = 4.5; // country names + counts appear from this zoom level
 
-const LEVELS = [
-  { min: 25, color: referencePalette.deepTeal, label: "25+" },
-  { min: 12, color: referencePalette.turquoise, label: "12 – 24" },
-  { min: 5, color: referencePalette.aqua, label: "5 – 11" },
-  { min: 1, color: referencePalette.paleMint, label: "1 – 4" },
-  { min: 0, color: referencePalette.gray, label: "No studies" },
-];
-const colorFor = (n: number) => LEVELS.find((l) => n >= l.min)!.color;
-const HOVER_BORDER = referencePalette.charcoal;
+const MAP_COLOR_KEY = "evidence-map-color";
+const HOVER_BORDER = referencePalette.slate;
 
 /* ---------- current zoom level, updates when the user zooms ---------- */
 function useZoom() {
@@ -100,16 +94,22 @@ function Controls({ home }: { home: LatLngBounds }) {
 }
 
 /* ---------- Legend ---------- */
-function Legend() {
+function Legend({ levels, color, onColorChange }: { levels: MapLevel[]; color: string | null; onColorChange: (color: string | null) => void }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (ref.current) L.DomEvent.disableClickPropagation(ref.current);
+    if (!ref.current) return;
+    L.DomEvent.disableClickPropagation(ref.current);
+    L.DomEvent.disableScrollPropagation(ref.current);
   }, []);
 
   return (
-    <div ref={ref} className="absolute bottom-4 left-4 z-[1000] rounded-xl bg-white/95 px-4 py-3 text-xs shadow-md">
+    <div ref={ref} className="map-legend absolute bottom-4 left-4 z-[1000] rounded-xl bg-white/95 px-4 py-3 text-xs shadow-md">
       <p className="mb-2 font-semibold text-[#232326]">Number of studies</p>
-      {LEVELS.map((l) => (
+      <div className="map-legend-color">
+        <label className="map-color-picker"><span>Map color</span><input type="color" aria-label="Choose map gradient color" value={color ?? referencePalette.deepTeal} onChange={event => onColorChange(event.target.value)} /></label>
+        <button type="button" className="map-color-reset" disabled={color === null} onClick={() => onColorChange(null)}>Reset</button>
+      </div>
+      {levels.map((l) => (
         <div key={l.label} className="flex items-center gap-2 py-0.5 text-[#30383f]">
           <span className="h-3 w-5 rounded-sm" style={{ backgroundColor: l.color }} />
           {l.label}
@@ -195,14 +195,33 @@ type Props = {
 export default function StudyMap({ counts, selected = "All", onSelect }: Props) {
   // Africa first, so the map opens exactly like before
   const [view, setView] = useState<View>("Africa");
+  const [mapColor, setMapColor] = useState<string | null>(() => {
+    if (typeof window === "undefined") return null;
+    try {
+      const stored = window.localStorage.getItem(MAP_COLOR_KEY);
+      return isMapColor(stored) ? stored : null;
+    } catch { return null; }
+  });
+  const levels = useMemo(() => createMapLevels(mapColor), [mapColor]);
+
+  function changeMapColor(color: string | null) {
+    if (color !== null && !isMapColor(color)) return;
+    setMapColor(color);
+    try {
+      if (color === null) window.localStorage.removeItem(MAP_COLOR_KEY);
+      else window.localStorage.setItem(MAP_COLOR_KEY, color);
+    } catch { /* The color picker still works when browser storage is unavailable. */ }
+  }
 
   // refs always hold the latest values, so hover/click code never uses old data
   const countsRef = useRef(counts);
   const selectedRef = useRef(selected);
   const onSelectRef = useRef(onSelect);
+  const levelsRef = useRef(levels);
   countsRef.current = counts;
   selectedRef.current = selected;
   onSelectRef.current = onSelect;
+  levelsRef.current = levels;
 
   // dev help: dataset countries that have no shape on the map (usually a spelling difference)
   useEffect(() => {
@@ -219,7 +238,7 @@ export default function StudyMap({ counts, selected = "All", onSelect }: Props) 
     const name = feature ? nameOf(feature) : "";
     const isSelected = name === selectedRef.current;
     return {
-      fillColor: colorFor(countsRef.current[name] ?? 0),
+      fillColor: studyCountColor(countsRef.current[name] ?? 0, levelsRef.current),
       fillOpacity: 1,
       color: isSelected ? HOVER_BORDER : "#ffffff",
       weight: isSelected ? 2.5 : 0.8,
@@ -294,7 +313,7 @@ export default function StudyMap({ counts, selected = "All", onSelect }: Props) 
         <FlyTo selected={selected} view={view} />
         <RegionTabs view={view} onChange={changeView} />
         <Controls home={viewBounds[view]} />
-        <Legend />
+        <Legend levels={levels} color={mapColor} onColorChange={changeMapColor} />
       </MapContainer>
     </div>
   );

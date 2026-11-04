@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test:flow": "node scripts/tests/evidence-flow.test.mjs",
-    "test:programs": "node scripts/tests/programs.test.mjs && node scripts/tests/program-workflow.test.mjs"
+    "test:programs": "node scripts/tests/programs.test.mjs && node scripts/tests/program-workflow.test.mjs",
+    "test:map": "node scripts/tests/map-color-scale.test.mjs"
   },
   "dependencies": {
     "d3-sankey": "^0.12.3",

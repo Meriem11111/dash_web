@@ -2,14 +2,14 @@
   "schema_version": "2",
   "rulebook_version": "1.0 (2026-09-14)",
   "provenance_basis": "MOCK: illustrative UI fixture; not extracted from a publication",
-  "extracted_at": "2026-10-16",
+  "extracted_at": "2026-11-03",
   "extracted_by": "mock-data",
   "reviewer_brief": "Demo record. Countries, dates, classifications and impacts are synthetic; do not cite as research evidence.",
   "deterministic": {
     "item_uuid": "6930142d-b4b5-5cb4-b2bd-b9df0ae4961d",
     "handle": "",
     "url": "https://cgspace.cgiar.org/collections/246d18a3-fdff-4f05-a918-94b617dc158e/search",
-    "title": "[Demo] Integrated rice and fish production in Tanzania",
+    "title": "[Demo] Crop-livestock integration and feed production in Tanzania — example 6",
     "authors": [],
     "affiliations": [],
     "issued": "2026-06",
@@ -47,7 +47,7 @@
       "value": true,
       "confidence": "low",
       "provenance": [],
-      "innovation_name": "Integrated rice and fish production in Tanzania",
+      "innovation_name": "Crop-livestock integration and feed production in Tanzania",
       "innovation_count": "1",
       "rejection_test": null,
       "note": "MOCK classification for testing the interface; no publication was evaluated.",
@@ -55,7 +55,7 @@
       "internal_note": ""
     },
     "scale": {
-      "value": "farm",
+      "value": "plot-herd",
       "confidence": "low",
       "provenance": [],
       "note": "MOCK application scale.",
@@ -71,45 +71,15 @@
         "note": "MOCK label for interface demonstration; no evidence claim.",
         "for_reviewer": null,
         "internal_note": null
-      },
-      {
-        "code": "Diversity",
-        "confidence": "low",
-        "provenance": [],
-        "added_by_reviewer": null,
-        "note": "MOCK label for interface demonstration; no evidence claim.",
-        "for_reviewer": null,
-        "internal_note": null
       }
     ],
-    "principles_considered_and_rejected": {
-      "Resilience": "",
-      "Synergies": "",
-      "Recycling": "",
-      "Co-creation and sharing of knowledge": "",
-      "Responsible governance": "",
-      "Culture and food tradition": "",
-      "Human and social values": "",
-      "Circular and solidarity economy": ""
-    },
+    "principles_considered_and_rejected": {},
     "impact_domains": [
       {
         "code": "Productivity",
-        "direction": "positive",
+        "direction": "mixed",
         "assessment_basis": "perceived",
-        "assessment_basis_note": "MOCK perceived-positive classification, provided solely to exercise the schema and interface. No actual research finding is asserted.",
-        "confidence": "low",
-        "provenance": [],
-        "added_by_reviewer": null,
-        "note": "MOCK label for interface demonstration; no evidence claim.",
-        "for_reviewer": null,
-        "internal_note": null
-      },
-      {
-        "code": "Economic",
-        "direction": "positive",
-        "assessment_basis": "perceived",
-        "assessment_basis_note": "MOCK perceived-positive classification, provided solely to exercise the schema and interface. No actual research finding is asserted.",
+        "assessment_basis_note": "MOCK outcome classification for interface demonstration; no actual finding is asserted.",
         "confidence": "low",
         "provenance": [],
         "added_by_reviewer": null,
@@ -118,9 +88,7 @@
         "internal_note": null
       }
     ],
-    "domains_considered_and_rejected": {
-      "Social": ""
-    },
+    "domains_considered_and_rejected": {},
     "geolocation": {
       "country_from_metadata": [
         "Tanzania"

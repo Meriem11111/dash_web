@@ -97,6 +97,7 @@ export default function ProgramCarousel({ children, total }: { children: ReactNo
   }
 
   return <div className="program-carousel" role="region" aria-roledescription="carousel" aria-labelledby="programs-title">
+    <div className="program-carousel-stage">
     <div id="programs" ref={trackRef} className="discovery-program-track" tabIndex={0} aria-label="Programs and initiatives. Swipe, drag, or use the arrow keys to browse."
       onPointerDown={startDrag} onPointerMove={drag} onPointerUp={endDrag} onPointerCancel={endDrag} onLostPointerCapture={endDrag}
       onPointerLeave={event => { if (!dragRef.current?.moved) endDrag(event); }}
@@ -113,13 +114,12 @@ export default function ProgramCarousel({ children, total }: { children: ReactNo
         move(event.key === "ArrowLeft" ? -1 : 1);
       }
     }}>{children}</div>
+      <button type="button" className="program-carousel-arrow program-carousel-previous" aria-label="Previous programs" aria-controls="programs" disabled={!view.previous} onClick={() => move(-1)}><Icon name="arrow-right" /></button>
+      <button type="button" className="program-carousel-arrow program-carousel-next" aria-label="Next programs" aria-controls="programs" disabled={!view.next} onClick={() => move(1)}><Icon name="arrow-right" /></button>
+    </div>
     <div className="program-carousel-toolbar">
       <p>Swipe to explore</p>
-      <div className="program-carousel-controls">
-        <span className="program-carousel-position" aria-live="polite" aria-atomic="true">{String(view.first).padStart(2, "0")}{view.last > view.first ? `–${String(view.last).padStart(2, "0")}` : ""} <span>/ {total}</span></span>
-        <button type="button" className="program-carousel-previous" aria-label="Previous programs" aria-controls="programs" disabled={!view.previous} onClick={() => move(-1)}><Icon name="arrow-right" /></button>
-        <button type="button" aria-label="Next programs" aria-controls="programs" disabled={!view.next} onClick={() => move(1)}><Icon name="arrow-right" /></button>
-      </div>
+      <span className="program-carousel-position" aria-live="polite" aria-atomic="true">{String(view.first).padStart(2, "0")}{view.last > view.first ? `–${String(view.last).padStart(2, "0")}` : ""} <span>/ {total}</span></span>
     </div>
   </div>;
 }

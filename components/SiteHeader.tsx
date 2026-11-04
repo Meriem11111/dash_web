@@ -21,6 +21,8 @@ export default function SiteHeader({ active, program }: { active: "home" | "over
   const hash = useSyncExternalStore(subscribeToHash, getHash, getServerHash);
   const programsActive = active === "home" && hash === "#programs";
   const homeActive = active === "home" && !programsActive;
+  const innovationsLocked = active === "overview";
+  const dashboardLocked = !!program && active !== "dashboard";
   return <header className="site-header">
     <Link className="wordmark" href="/" aria-label="CIMMYT CGIAR home">CIMMYT <span className="brand-divider">/</span> CGIAR</Link>
     <nav aria-label="Main navigation">
@@ -31,8 +33,12 @@ export default function SiteHeader({ active, program }: { active: "home" | "over
       }}>Home</Link>
       <ProgramsLink className={programsActive ? "nav-active" : ""} ariaCurrent={programsActive ? "location" : undefined}>Programs</ProgramsLink>
       {program && <Link href={`/programs/${program.slug}`} className={active === "overview" ? "nav-active" : ""} aria-current={active === "overview" ? "page" : undefined}>Overview</Link>}
-      {program && <Link href={`/innovations?program=${program.slug}`} className={active === "innovations" ? "nav-active" : ""} aria-current={active === "innovations" ? "page" : undefined}>Technological innovations</Link>}
-      <Link href="/dashboard" className={active === "dashboard" ? "nav-active" : ""} aria-current={active === "dashboard" ? "page" : undefined}>Dashboard</Link>
+      {program && (innovationsLocked
+        ? <span className="nav-disabled" role="link" aria-disabled="true" title="Use the Technological innovations button on this page to continue.">Technological innovations</span>
+        : <Link href={`/innovations?program=${program.slug}`} className={active === "innovations" ? "nav-active" : ""} aria-current={active === "innovations" ? "page" : undefined}>Technological innovations</Link>)}
+      {dashboardLocked
+        ? <span className="nav-disabled" role="link" aria-disabled="true" title="Select studies, then use Explore in the dashboard to continue.">Dashboard</span>
+        : <Link href="/dashboard" className={active === "dashboard" ? "nav-active" : ""} aria-current={active === "dashboard" ? "page" : undefined}>Dashboard</Link>}
     </nav>
     <ThemeToggle />
   </header>;

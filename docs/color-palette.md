@@ -20,3 +20,5 @@ Source: the user-provided `colorRef.pdf` (16-page concept pitch). Colors were ex
 | Gray | `#E4E4E9` | Dark secondary text and map no-data fill |
 
 Supporting interface and chart colors include the PDF's `#596BFF`, `#BDC4FF`, `#14E6E6`, `#30C1D7`, `#00BF99`, and `#CFFBFB`. White and black are also present in the PDF and are used for contrast. Transparent borders and photographic overlays use these same RGB colors with alpha; no replacement sage or ivory palette remains. The visualizations share `lib/referencePalette.ts`; semantic theme roles are declared in `app/globals.css`.
+
+Map fills retain the reference deep teal, turquoise, aqua, and pale mint as their base colors. To reduce their intensity, each fill blends 65% of its base color with 25% reference gray and 10% reference slate. Custom map gradients receive the same treatment; no-data countries keep the reference gray.

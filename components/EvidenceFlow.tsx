@@ -212,7 +212,7 @@ export default function EvidenceFlow({ studies, colorLabels, selected, onPick }:
         </svg>
       </div>
       <p className="flow-detail" aria-live="polite">{detail}</p>
-      <div className="flow-help"><p>Read from left to right. Wider ribbons represent more evidence. Each study contributes one unit, shared across its countries, principles and domains. The ten most represented countries are shown; the rest are grouped.</p><span>Ribbon colors follow the principle</span></div>
+      <div className="flow-help"><p>Read left to right: where studies took place, which principles they examined, and which outcomes they assessed. Wider ribbons represent more study coverage. Connections show labels on the same studies, not whether a practice worked. Each study contributes one unit, shared across its labels. The ten most represented countries are shown; the rest are grouped. Select a country to see its own connections.</p><span>Ribbon colors follow the principle</span></div>
     </div>
   );
 }

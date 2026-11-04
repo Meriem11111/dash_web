@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import Icon from "@/components/Icon";
+import EvidenceFilters, { type EvidenceFilterField } from "@/components/EvidenceFilters";
 import DataNotice from "@/components/DataNotice";
 import SiteHeader from "@/components/SiteHeader";
 import { findProgram } from "@/lib/programs";
@@ -38,12 +39,12 @@ export default function Dashboard({ studies, selected = false, programSlug }: { 
     for (const s of mapStudies) for (const c of s.Countries) result[c] = (result[c] ?? 0) + 1;
     return result;
   }, [mapStudies]);
-  const activeFilters = [
-    { label: "Country", value: country, clear: () => setCountry("All") },
-    { label: "Scale", value: scale, clear: () => setScale("All") },
-    { label: "Principle", value: principle, clear: () => setPrinciple("All") },
-    { label: "Domain", value: domain, clear: () => setDomain("All") },
-  ].filter(f => f.value !== "All");
+  const filterFields: EvidenceFilterField[] = [
+    { key: "country", label: "Country", icon: "globe", value: country, options: countries, allLabel: "All countries", onChange: setCountry },
+    { key: "scale", label: "Landscape scale", chipLabel: "Scale", icon: "layers", value: scale, options: scales, allLabel: "All scales", onChange: setScale },
+    { key: "principle", label: "Agroecological principle", chipLabel: "Principle", icon: "leaf", value: principle, options: principles, allLabel: "All principles", onChange: setPrinciple },
+    { key: "domain", label: "Impact domain", chipLabel: "Domain", icon: "target", value: domain, options: domains, allLabel: "All domains", onChange: setDomain },
+  ];
   function resetFilters() { setCountry("All"); setScale("All"); setPrinciple("All"); setDomain("All"); }
   function onPick(kind: FlowKind, value: string) {
     if (kind === "country") setCountry(country === value ? "All" : value);
@@ -75,11 +76,7 @@ export default function Dashboard({ studies, selected = false, programSlug }: { 
           <Stat number={new Set(filteredStudies.flatMap(s => s.Principles)).size} label="Agroecological principles" note="linked to landscape outcomes" />
           <Stat number={new Set(filteredStudies.flatMap(s => s.Domains)).size} label="Impact domains" note="dimensions of change" />
         </section>
-        <section className="filter-panel" aria-label="Filter the evidence">
-          <div className="filter-heading"><h2>Refine your view</h2><button className="text-button" onClick={resetFilters} disabled={!activeFilters.length}>Reset filters <Icon name="reset" /></button></div>
-          <div className="filter-grid"><Field label="Country" value={country} onChange={setCountry} options={countries} /><Field label="Landscape scale" value={scale} onChange={setScale} options={scales} /><Field label="Agroecological principle" value={principle} onChange={setPrinciple} options={principles} /><Field label="Impact domain" value={domain} onChange={setDomain} options={domains} /></div>
-          <div className="filter-status"><span aria-live="polite"><i className="status-dot" />{filteredStudies.length} studies match your view</span><div className="filter-chips">{activeFilters.map(f => <button key={f.label} onClick={f.clear} aria-label={`Remove ${f.label} filter: ${f.value}`}>{f.value} <span aria-hidden="true">×</span></button>)}</div></div>
-        </section>
+        <EvidenceFilters fields={filterFields} count={filteredStudies.length} onReset={resetFilters} />
         <section id="evidence-flow" className="visual-section">
           <div className="section-heading"><div><p className="eyebrow">01 / Connected evidence</p><h2>From place to practice to impact</h2><p>Trace the relationships within the studies. Select a segment to explore it.</p></div></div>
           <EvidenceScreenshot kind="chart"><div className="flow-panel"><EvidenceFlow studies={filteredStudies} colorLabels={principles.filter(p => p !== "All")} selected={{ country, principle, domain }} onPick={onPick} /></div></EvidenceScreenshot>
@@ -92,7 +89,6 @@ export default function Dashboard({ studies, selected = false, programSlug }: { 
   );
 }
 function Stat({ number, label, note }: { number: number; label: string; note: string }) { return <div className="stat"><strong>{String(number).padStart(2, "0")}</strong><div><p>{label}</p><span>{note}</span></div></div>; }
-function Field({ label, value, onChange, options }: { label: string; value: string; onChange: (v: string) => void; options: string[] }) { return <label className="filter-field"><span>{label}</span><select value={value} onChange={e => onChange(e.target.value)}>{options.map(o => <option key={o} value={o}>{o === "All" ? "All " + (label === "Country" ? "countries" : label === "Landscape scale" ? "scales" : label === "Impact domain" ? "domains" : "principles") : o}</option>)}</select></label>; }
 function StudyTable({ studies }: { studies: Study[] }) {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
