@@ -4,7 +4,7 @@ import { MapContainer, GeoJSON, Marker, useMap, useMapEvents } from "react-leafl
 import L from "leaflet";
 import type { Layer, PathOptions, LatLngBounds } from "leaflet";
 import type { Feature, FeatureCollection } from "geojson";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import "leaflet/dist/leaflet.css";
 // World countries (Natural Earth 50m recommended), saved as src/data/world.json
 import worldData from "@/data/world.json";
@@ -12,6 +12,7 @@ import moroccoDisplay from "@/data/map-morocco.json";
 import regionCodes from "@/data/map-regions.json";
 import { referencePalette } from "@/lib/referencePalette";
 import { createMapLevels, isMapColor, studyCountColor, type MapLevel } from "@/lib/mapColorScale";
+import Icon from "@/components/Icon";
 
 /* ---------- Regions (ISO-2 codes) ---------- */
 type RegionName = keyof typeof regionCodes;
@@ -96,6 +97,8 @@ function Controls({ home }: { home: LatLngBounds }) {
 /* ---------- Legend ---------- */
 function Legend({ levels, color, onColorChange }: { levels: MapLevel[]; color: string | null; onColorChange: (color: string | null) => void }) {
   const ref = useRef<HTMLDivElement>(null);
+  const [expanded, setExpanded] = useState(false);
+  const contentId = useId();
   useEffect(() => {
     if (!ref.current) return;
     L.DomEvent.disableClickPropagation(ref.current);
@@ -104,17 +107,35 @@ function Legend({ levels, color, onColorChange }: { levels: MapLevel[]; color: s
 
   return (
     <div ref={ref} className="map-legend absolute bottom-4 left-4 z-[1000] rounded-xl bg-white/95 px-4 py-3 text-xs shadow-md">
-      <p className="mb-2 font-semibold text-[#232326]">Number of studies</p>
-      <div className="map-legend-color">
-        <label className="map-color-picker"><span>Map color</span><input type="color" aria-label="Choose map gradient color" value={color ?? referencePalette.deepTeal} onChange={event => onColorChange(event.target.value)} /></label>
-        <button type="button" className="map-color-reset" disabled={color === null} onClick={() => onColorChange(null)}>Reset</button>
-      </div>
-      {levels.map((l) => (
-        <div key={l.label} className="flex items-center gap-2 py-0.5 text-[#30383f]">
-          <span className="h-3 w-5 rounded-sm" style={{ backgroundColor: l.color }} />
-          {l.label}
+      <button
+        type="button"
+        className="map-legend-toggle"
+        aria-label={expanded ? "Hide study ranges and color controls" : "Show study ranges and color controls"}
+        aria-expanded={expanded}
+        aria-controls={contentId}
+        onClick={() => setExpanded(value => !value)}
+      >
+        {expanded ? <span>Number of studies</span> : <span className="map-legend-colors" aria-hidden="true">
+          {levels.map((level) => (
+            <span key={level.label} className="map-legend-swatch" style={{ backgroundColor: level.color }} />
+          ))}
+        </span>}
+        <Icon name="chevron-down" />
+      </button>
+      <div id={contentId} hidden={!expanded}>
+        <div className="map-legend-color">
+          <label className="map-color-picker"><span>Map color</span><input type="color" aria-label="Choose map gradient color" value={color ?? referencePalette.deepTeal} onChange={event => onColorChange(event.target.value)} /></label>
+          <button type="button" className="map-color-reset" disabled={color === null} onClick={() => onColorChange(null)}>Reset</button>
         </div>
-      ))}
+        <div className="map-legend-levels">
+          {levels.map((level) => (
+            <div key={level.label} className="map-legend-level">
+              <span className="h-3 w-5 rounded-sm" style={{ backgroundColor: level.color }} />
+              <span>{level.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
